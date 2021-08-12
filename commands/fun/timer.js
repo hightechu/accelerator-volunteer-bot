@@ -1,264 +1,107 @@
-/*
-Discord, channel specific timer:
-timer start <countdown> (optional)
-timer pause <reason> (optional)
-timer resume 
-timer stop    // returns the total time was running for / remaining.
-timer         // shows the current time if any, this help if none.
-*/
+const Discord = require("discord.js");
+const secConv = require("seconds-converter");
+const client = new Discord.Client();
+let timers = [];
 
-const Discord = require('discord.js');
-const client  = new Discord.Client();
-const micro   = require('micro')
-const server = micro(async (req, res) => 'Ready')
-const moment = require('moment');
+let embedTemplate = new Discord.RichEmbed()
 
-require('dotenv').config()
 
-server.listen(3000)
 
-const help = 
-	'\n' + 
-	'timer start <countdown> (optional)\n' + 
-	'timer pause <reason> (optional)\n' + 
-	'timer resume\n' + 
-	'timer stop\n' + 
-	'timer // returns current timer'
-
+// Log that the bot has started and then set the activity
 client.on('ready', () => {
-	console.log(`Logged in as ${client.user.tag}!`);
+    console.log(`Logged in as ${client.user.tag}!`);
+    client.user.setActivity('A Simple Melody');
 });
 
+client.on('message', message => {
+    if (message.author.bot) return;
 
-function humanize(a, b) {
-	var hours   = Math.abs(a.diff(b, 'hours')),
-		minutes = Math.ceil(Math.abs(a.diff(b, 'minutes')) - (hours * 60), 0),
-		seconds = Math.abs(a.diff(b, 'seconds')),
-		out = []
+    const strArgs = message.content.split(/\|/);
+    strArgs.shift();
 
-	if(hours > 1) out.push(hours + ' hours')
-	if(hours == 1) out.push(hours + ' hour')
-	if(minutes > 1) out.push(minutes + ' minutes')
-	if(minutes == 1) out.push(minutes + ' minute')
-	if(!hours && !minutes & seconds > 1) out.push(seconds + ' seconds')
-	if(!hours && !minutes & seconds == 1) out.push(seconds + ' second')
+    const args = message.content.slice("!".length).split(/ +/);
+    const commandName = args.shift().toLowerCase();
 
-	return out.join(', ') || 'none'
+    if (commandName !== "settimer") return;
+
+    let timeRemaining = getSeconds(args[0]);
+    timeRemaining -= timeRemaining % 60;
+    let title = strArgs.length > 0 ? strArgs[0] : "A Simple Countdown Timer";
+    let description = strArgs.length > 1 ? strArgs[1] : "A simple countdown timer, counting towards the end of days!";
+    console.log(timeRemaining);
+    message.channel.send(getEmbed(title, description, timeRemaining)).then(sent => {
+        timers[sent.id] = {};
+        timers[sent.id].timeRemaining = timeRemaining;
+        timers[sent.id].name = title;
+        timers[sent.id].description = description;
+        let interval = setInterval(function(){
+            if (timers[sent.id] === null) { clearInterval(interval); }
+            if (timers[sent.id].timeRemaining > 60) {
+                timers[sent.id].timeRemaining -= 60;
+                sent.edit(getEmbed(timers[sent.id].name, timers[sent.id].description, timers[sent.id].timeRemaining)).catch(() => { timers[sent.id] = null; clearInterval(interval); });
+            } else {
+                timers[sent.id] = null;
+                sent.edit(getEmbed(timers[sent.id].name, timers[sent.id].description, timers[sent.id].timeRemaining)).catch(() => { timers[sent.id] = null; });
+                clearInterval(interval);
+            }
+        }, 60000);
+    });
+
+    message.delete().catch();
+
+});
+
+function getSeconds(datetime) {
+    let days = 0;
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+    let times = datetime.split(':');
+    if (times.length === 1) {
+        return parseInt(times[0]);
+    } if (times.length === 2) {
+        minutes = parseInt(times[0]);
+        seconds = parseInt(times[1]);
+    } if (times.length === 3) {
+        hours = parseInt(times[0]);
+        minutes = parseInt(times[1]);
+        seconds = parseInt(times[2]);
+    } if (times.length === 4) {
+        days = parseInt(times[0]);
+        hours = parseInt(times[1]);
+        minutes = parseInt(times[2]);
+        seconds = parseInt(times[3]);
+    }
+    seconds += days*24*60*60;
+    seconds += hours*60*60;
+    seconds += minutes*60;
+    return seconds;
 }
 
-function renderTimer(timer, now) {
-
-	var until = moment(timer.started)
-	until.add((timer.time || 0), 'seconds')
-
-	now = timer.paused || now 
-
-	if(timer.time) {
-
-		var time = moment.utc(until.diff(now)).format("HH:mm:ss")
-
-		if(until.isAfter(now) > 0){
-			return humanize(until, now) + ' remaining — ' + time			
-		}
-	
-		else {
-			return 'Time is up'			
-		}
-	
-	}
-
-	else {
-		var time = moment.utc(now.diff(until)).format("HH:mm:ss")
-		return 'elapsed ' + humanize(until, now) + ' — ' + time
-	}
+function getDateFormat(seconds) {
+    let result = "";
+    let convertedTime = secConv(seconds);
+    if (convertedTime.days > 0) {
+        let val = convertedTime.days > 1 ? " days " : " day ";
+        result += String(convertedTime.days) + val;
+    } if (convertedTime.hours > 0) {
+        let val = convertedTime.hours > 1 ? " hours " : " hour ";
+        result += String(convertedTime.hours) + val;
+    } if (convertedTime.minutes > 0) {
+        let val = convertedTime.minutes > 1 ? " minutes " : " minute ";
+        result += String(convertedTime.minutes) + val;
+    }
+    return result;
 }
 
-
-var timers = {}
-
-
-function manageTimers(){
-	var now = moment.utc()
-
-	for(channel in timers) {
-		let timer = timers[channel]
-
-		var diff = now.diff(timer.started,'hours')
-
-		// Clear anything older that 6 hours
-		if(diff > 6){
-			delete timers[channel]
-		}	
-
-		else if(timer.time) {
-
-			// Check if we should inform the channel: 1 hour, 30 minutes, 15 minutes
-			var until = moment(timer.started).add((timer.time || 0), 'seconds')
-			var minutes = until.diff(timer.paused || now, 'minutes')
-			var msg
-			
-			switch(minutes) {
-				case 60:
-					msg = '1 hour remaining'
-					break
-				case 30:
-					msg = '30 minutes remaining'
-					break
-				case 15:
-					msg = '15 minutes remaining'
-					break
-			}
-
-			if(until.isBefore(timer.paused || now) > 0){
-				msg = 'Time is up'
-				delete timers[channel]
-			}
-
-			if(msg && timer.msg != msg) {
-				timer.msg = msg
-				client.channels.get(channel).send(msg);				
-			}
-		
-			// Used for testing only
-			// timer.started.subtract(1, 'minutes')
-
-		}
-
-	}
+function getEmbed(title, description, timeRemaining) {
+    let embed = new Discord.RichEmbed()
+        .setColor('#8d3ac5')
+        .setThumbnail("https://cdn.pixabay.com/photo/2013/07/13/13/34/hourglass-161125_960_720.png")
+        .setAuthor('TimeoutBot', 'https://cdn.pixabay.com/photo/2015/11/17/02/18/hourglass-1046841_960_720.png')
+        .setFooter("Bot Created By CelesteMagisteel | https://fluxinc.xyz");
+    embed.setTitle(title); embed.setDescription(description);
+    if (timeRemaining > 60) { embed.addField("Time Remaining", getDateFormat(timeRemaining), true); }
+    else { embed.addField("Timer Complete", "The Countdown has finished!", true); }
+    return embed;
 }
-
-
-var manageInt = setInterval(manageTimers, 30 * 1000)
-
-client.on('message', msg => {
-  if (msg.content.indexOf('timer') == 0) {
-
-	var user          = msg.author.username 
-	var channel       = msg.channel.id
-	var opts          = msg.content.match(/\S+/g)
-	var current       = timers[channel]
-	var clientchannel = client.channels.get(channel)
-
-	var action        = opts[1]
-	var param         = opts[2]
-	var now           = moment.utc()
-
-	switch(action) {
-
-		case 'start':
-
-			if(current) {
-				return msg.reply('Please stop the current timer first: timer stop')
-			}
-
-			var time    = opts[2],
-				hours   = 0,
-				minutes = 0,
-				seconds = 0 
-
-			if(time) {
-				time = time.split(':')
-
-				switch(time.length) {
-					case 3:
-						hours   = parseFloat(time[0]) || 0
-						minutes = parseFloat(time[1]) || 0
-						seconds = parseFloat(time[2]) || 0
-						break
-					case 2:
-						hours   = parseFloat(time[0]) || 0
-						minutes = parseFloat(time[1]) || 0
-						break
-					case 1:
-						hours   = parseFloat(time[0]) || 0
-						break
-				}
-
-			}
-
-			var current = {
-				author: user,
-				started: now,
-				time: (hours * 60 * 60) + (minutes * 60) + seconds
-			}
-
-			timers[channel] = current
-
-			if(current.time) {
-				msg.reply('timer started, ' + renderTimer(current, now))
-			}
-			else {
-				msg.reply('timer started')
-			}
-
-			break
-
-		case 'pause':
-			if(current) {
-				current.paused = now
-				msg.reply('timer paused, ' + renderTimer(current, now))
-			}
-
-			else {
-				msg.reply('no current timer')
-			}
-
-			break;
-
-		case 'resume':
-
-			if(current) {
-				var paused = current.paused
-				var started = current.started
-				
-				// Add extra time
-				started.add( 
-					now.diff(paused, 'seconds'), 'seconds'
-				)
-				
-				// Clear paused
-				current.paused = null 
-
-				msg.reply('timer resumed, ' + renderTimer(current, now))
-			}
-
-			else {
-				msg.reply('no current timer')
-			}
-
-			break
-
-		case 'stop':
-
-			if(current) {
-				msg.reply('timer stopped, ' + renderTimer(current, now))
-				delete timers[channel]
-			}
-
-			else {
-				msg.reply('no current timer')
-			}
-
-			break
-
-		case 'help':
-			msg.reply(help)
-			break
-
-		default:
-
-			if(current) {
-				clientchannel.send(
-					renderTimer(current, now)
-				)
-			}
-
-			else {
-				clientchannel.send(help)
-			}
-	}
-
-  }
-})
-
-client.login(process.env.TOKEN)
