@@ -1,6 +1,4 @@
-// Employee Module
-const categories = ["Animals", "Sports", "Service", "Academics", "Food", "Nature"]
-
+// Ping Module
 const jobs = [
     {
         title: 'Animal Shelter Volunteer',
@@ -54,20 +52,38 @@ const jobs = [
 
 module.exports = {
     // Name of Command
-    name: 'employee',
+    name: 'find',
     // Description of Command
-    description: 'emplowwfwfwyee',
+    description: 'Find!',
+    //Useage instructions
+    usage: '[one two three]',
     // Guild - TRUE
     guildOnly: true,
     // Cooldown
     cooldown: 5,
     // Execute Command - Parameters: message
-    execute(message) {
-        // Send Message
-        const c = categories.join(', ');
+    execute(message, args) {
+        const categories = args.toString()
+        const c = categories.split(",")
+        const age = c[0]
+        const location = c[1]
+        const interests = [c[2], c[3], c[4]] //fix this lmao
 
-        message.channel.send(`Welcome student! We currently have ${jobs.length} jobs available!`);
-        message.channel.send('To find a job, please enter your info in this format: !find [age location interest interest interest]');
-        message.channel.send(`Categories: ${c}`);
+        //const opts = jobs.filter(job => {age >= job.minAge})
+        
+        const opts = jobs.filter(job => {
+            return (
+                age >= job.minAge &&
+                location == job.location &&
+                interests.includes(job.category)
+            )
+        })
+         
+
+        //Print available jobs:
+        message.channel.send(`Thank you! You are applicable for ${opts.length} volunteer jobs:`)
+        opts.forEach(opt => {
+            message.channel.send(`Job Title: ${opt.title}, Description: ${opt.description}, Hours available: ${opt.hours}`);
+        })
     },
 };
