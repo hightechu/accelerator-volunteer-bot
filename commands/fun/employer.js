@@ -12,11 +12,6 @@ module.exports = {
     execute(message) {
         // Send Message
         message.channel.send('Welcome employer! We currently have "x" employees, please state the minimum age, location and time. Please write the info in the stated order.');
-        const args = message.content.slice(prefix.length).trim().split(/ +/g);
-        const command = args.shift().toLowerCase();
-        let age = args[0];
-        let location = args[1];
-        let time = args[2];
             // Execute Command - Parameters: message
     execute(message)
         // Send Message
