@@ -9,7 +9,7 @@ module.exports = {
     // Guild - TRUE
     guildOnly: true,
     // Cooldown
-    cooldown: 50,
+    cooldown: 5,
     // Execute Command - Parameters: message
     execute(message) {
         // Send Message
