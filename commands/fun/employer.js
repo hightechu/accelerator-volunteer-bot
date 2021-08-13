@@ -1,5 +1,5 @@
 // Employer Module
-//const categories = ["Animals", "Sports", "Service", "Academics", "Food", "Nature"]
+const categories = ["Animals", "Sports", "Service", "Academics", "Food", "Nature"]
 
 module.exports = {
     // Name of Command
@@ -13,8 +13,8 @@ module.exports = {
     // Execute Command - Parameters: message
     execute(message) {
         // Send Message
-        //const c = categories.join(', ') //@todo do not add comma to last element
+        const c = categories.join(', '); //@todo do not add comma to last element
         message.channel.send('Welcome employer! To add a volunteer position, please type !job [minimum age] [location] [hours] [category].');
-        //message.channel.send(`The categories are: ${c}`);
+        message.channel.send(`The categories are: ${c}`);
     },
 };
