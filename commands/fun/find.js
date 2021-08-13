@@ -14,9 +14,10 @@ module.exports = {
     execute(message, args) {
         const categories = args.toString()
         const c = categories.split(",")
+        message.channel.send(`c: ${c}`);
+        const a = c.split(',')
+        message.channel.send(`a: ${a}`);
+        message.channel.send(`c: ${c}`);
         //age location interest1 interest2 interest3
-
-        // Send Message
-        message.channel.send(`Here is your input: ${c}`);
     },
 };
