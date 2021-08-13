@@ -26,6 +26,30 @@ const jobs = [
         category: 'Service',
         minAge: 14,
     },
+    {
+        title: 'Math tutor',
+        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        hours: 5,
+        location: 'Victoria',
+        category: 'Academics',
+        minAge: 16,
+    },
+    {
+        title: 'Election Volunteer',
+        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        hours: 50,
+        location: 'Victoria',
+        category: 'Academics',
+        minAge: 15,
+    },
+    {
+        title: 'Library Volunteer',
+        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        hours: 45,
+        location: 'Victoria',
+        category: 'Academics',
+        minAge: 14,
+    },
 ]
 
 module.exports = {
