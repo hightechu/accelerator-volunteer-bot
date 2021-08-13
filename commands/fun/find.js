@@ -2,7 +2,7 @@
 const jobs = [
     {
         title: 'Animal Shelter Volunteer',
-        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        description: 'Helping care for animals at the downtown shelter',
         hours: 10,
         location: 'Victoria',
         category: 'Animals',
@@ -10,7 +10,7 @@ const jobs = [
     },
     {
         title: 'Kids Soccer Coach Volunteer',
-        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        description: 'Coaching kids soccer on Saturdays',
         hours: 15,
         location: 'Richmond',
         category: 'Sports',
@@ -18,7 +18,7 @@ const jobs = [
     },
     {
         title: 'Food Bank Holiday Volunteer',
-        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        description: 'Helping pack bags of food for the holiday season',
         hours: 5,
         location: 'Victoria',
         category: 'Service',
@@ -26,7 +26,7 @@ const jobs = [
     },
     {
         title: 'Math tutor',
-        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        description: 'Tuoring grade students in math',
         hours: 5,
         location: 'Victoria',
         category: 'Academics',
@@ -34,7 +34,7 @@ const jobs = [
     },
     {
         title: 'Election Volunteer',
-        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        description: 'Helping organize lines of people coming to vote',
         hours: 50,
         location: 'Victoria',
         category: 'Academics',
@@ -42,7 +42,7 @@ const jobs = [
     },
     {
         title: 'Library Volunteer',
-        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        description: 'You will be stocking shelves at the downtown library.',
         hours: 45,
         location: 'Victoria',
         category: 'Academics',
@@ -81,7 +81,7 @@ module.exports = {
          
 
         //Print available jobs:
-        message.channel.send(`Thank you! Here is a list of vounteer jobs you are eligible for: ${opts.length}`)
+        message.channel.send(`Thank you! You are applicable for ${opts.length} volunteer jobs:`)
         opts.forEach(opt => {
             message.channel.send(`Job Title: ${opt.title}, Description: ${opt.description}, Hours available: ${opt.hours}`);
         })

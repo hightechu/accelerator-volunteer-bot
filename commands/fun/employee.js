@@ -4,7 +4,7 @@ const categories = ["Animals", "Sports", "Service", "Academics", "Food", "Nature
 const jobs = [
     {
         title: 'Animal Shelter Volunteer',
-        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        description: 'Helping care for animals at the downtown shelter',
         hours: 10,
         location: 'Victoria',
         category: 'Animals',
@@ -12,7 +12,7 @@ const jobs = [
     },
     {
         title: 'Kids Soccer Coach Volunteer',
-        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        description: 'Coaching kids soccer on Saturdays',
         hours: 15,
         location: 'Richmond',
         category: 'Sports',
@@ -20,7 +20,7 @@ const jobs = [
     },
     {
         title: 'Food Bank Holiday Volunteer',
-        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        description: 'Helping pack bags of food for the holiday season',
         hours: 5,
         location: 'Victoria',
         category: 'Service',
@@ -28,7 +28,7 @@ const jobs = [
     },
     {
         title: 'Math tutor',
-        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        description: 'Tuoring grade students in math',
         hours: 5,
         location: 'Victoria',
         category: 'Academics',
@@ -36,7 +36,7 @@ const jobs = [
     },
     {
         title: 'Election Volunteer',
-        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        description: 'Helping organize lines of people coming to vote',
         hours: 50,
         location: 'Victoria',
         category: 'Academics',
@@ -44,7 +44,7 @@ const jobs = [
     },
     {
         title: 'Library Volunteer',
-        description: 'wevuewniuewbbewiubewubgwkbgjew gjewbgjewg',
+        description: 'You will be stocking shelves at the downtown library.',
         hours: 45,
         location: 'Victoria',
         category: 'Academics',
@@ -66,8 +66,8 @@ module.exports = {
         // Send Message
         const c = categories.join(', ');
 
-        message.channel.send(`Welcome student! We currently ${jobs.length} jobs available!`);
-        message.channel.send('To find a job, please enter your top three interests in this format: !find [one two three]');
+        message.channel.send(`Welcome student! We currently have ${jobs.length} jobs available!`);
+        message.channel.send('To find a job, please enter your info in this format: !find [age location interest interest interest]');
         message.channel.send(`Categories: ${c}`);
     },
 };
