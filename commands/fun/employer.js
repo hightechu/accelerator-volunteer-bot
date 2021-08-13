@@ -1,9 +1,11 @@
 // Employer Module
+const categories = ["Animals", "Sports", "Service", "Academics", "Food", "Nature"]
+
 module.exports = {
     // Name of Command
-    name: '!employer',
+    name: 'employer',
     // Description of Command
-    description: 'employer',
+    description: '!employer',
     // Guild - TRUE
     guildOnly: true,
     // Cooldown
@@ -11,16 +13,8 @@ module.exports = {
     // Execute Command - Parameters: message
     execute(message) {
         // Send Message
-        message.channel.send('Welcome employer! We currently have "x" employees, please state the minimum age, location and time. Please write the info in the stated order.');
-            // Execute Command - Parameters: message
-    //execute(message)
-        // Send Message
-        message.channel.send('Now please tell us what type of volunteering you are offering by reacting with the emojis below. (animal care, supervising children, charity.)');
-        // Add Reaction
-        sentMessage.react(':dog:');
-        // Add Reaction
-        sentMessage.react(':baby:');
-        // Add Reaction
-        sentMessage.react(':dollar:');
+        const c = categories.join(', ') //@todo do not add comma to last element
+        message.channel.send('Welcome employer! To add a volunteer position, please type !job [minimum age] [location] [hours] [category].');
+        message.channel.send(`The categories are: ${c}`)
     },
 };
