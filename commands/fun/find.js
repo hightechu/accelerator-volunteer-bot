@@ -12,11 +12,11 @@ module.exports = {
     cooldown: 50,
     // Execute Command - Parameters: message
     execute(message, args) {
-        const categories = args.split(" ")
+        //const categories = args.split(" ")
 
-        const c = categories.join(', ');
+        //const c = categories.join(', ');
 
         // Send Message
-        message.channel.send(`Here is your input: ${c}`);
+        message.channel.send(`Here is your input: ${args}`);
     },
 };
