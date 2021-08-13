@@ -15,7 +15,7 @@ module.exports = {
         const categories = args.toString()
         const c = categories.split(",")
         message.channel.send(`c: ${c}`);
-        const a = c.split(',')
+        const a = c.toString().split(',')
         message.channel.send(`a: ${a}`);
         message.channel.send(`c: ${c}`);
         //age location interest1 interest2 interest3
