@@ -29,7 +29,7 @@ module.exports = {
     // Name of Command
     name: 'employee',
     // Description of Command
-    description: '!employee',
+    description: 'emplowwfwfwyee',
     // Guild - TRUE
     guildOnly: true,
     // Cooldown
@@ -37,6 +37,6 @@ module.exports = {
     // Execute Command - Parameters: message
     execute(message) {
         // Send Message
-        message.channel.send(`Welcome student! We currently have ${jobs.length} available!`);
+        message.channel.send(`Welcome student! We currently haveavailable!`); //${jobs.length} 
     },
 };
