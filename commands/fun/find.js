@@ -69,6 +69,8 @@ module.exports = {
         const location = c[1]
         const interests = [c[2], c[3], c[4]] //fix this lmao
 
+        //const opts = jobs.filter(job => {age >= job.minAge})
+        
         const opts = jobs.filter(job => {
             return (
                 age >= job.minAge &&
@@ -76,9 +78,10 @@ module.exports = {
                 interests.includes(job.category)
             )
         })
+         
 
         //Print available jobs:
-        message.channel.send('Thank you! Here is a list of vounteer jobs you are eligible for:')
+        message.channel.send(`Thank you! Here is a list of vounteer jobs you are eligible for: ${opts.length}`)
         /*opts.map(opt => {
             message.channel.send(`Job Title: ${opt.title}, Description: ${opt.description}, Hours available: ${opt.hours}`);
         })*/
