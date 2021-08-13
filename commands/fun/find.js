@@ -17,6 +17,6 @@ module.exports = {
         const c = categories.join("! ")
 
         // Send Message
-        message.channel.send(`Here is your input: ${args}`);
+        message.channel.send(`Here is your input: ${c}`);
     },
 };
