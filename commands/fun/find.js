@@ -82,9 +82,8 @@ module.exports = {
 
         //Print available jobs:
         message.channel.send(`Thank you! Here is a list of vounteer jobs you are eligible for: ${opts.length}`)
-        /*opts.map(opt => {
+        opts.forEach(opt => {
             message.channel.send(`Job Title: ${opt.title}, Description: ${opt.description}, Hours available: ${opt.hours}`);
-        })*/
-        //age location interest1 interest2 interest3
+        })
     },
 };
