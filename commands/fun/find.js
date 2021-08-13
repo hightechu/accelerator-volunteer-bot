@@ -68,6 +68,7 @@ module.exports = {
         const age = c[0]
         const location = c[1]
         const interests = [c[2], c[3], c[4]] //fix this lmao
+        message.channel.send(`interests: ${interests}`);
 
 
         const opts = jobs.filter(job => {
