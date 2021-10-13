@@ -1,8 +1,11 @@
-![HighTechU Discord Bot](./docs/images/hightechu-discord-bot-banner.png)
+![Volunteer Bot](https://user-images.githubusercontent.com/26526271/137214285-053d391b-50a0-4d94-a7fa-f116ac647714.png)
+
 
 ## About
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor vitae purus faucibus ornare suspendisse sed nisi lacus. Posuere lorem ipsum dolor sit. Quis varius quam quisque id diam vel quam elementum pulvinar. Rhoncus dolor purus non enim praesent elementum facilisis leo. Accumsan lacus vel facilisis volutpat est velit egestas dui. For more information about the commands visit the "[documentation](https://hightechu.ca)".
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor vitae purus faucibus ornare suspendisse sed nisi lacus. Posuere lorem ipsum dolor sit. Quis varius quam quisque id diam vel quam elementum pulvinar. Rhoncus dolor purus non enim praesent elementum facilisis leo. Accumsan lacus vel facilisis volutpat est velit egestas dui. 
+
+For more information about the commands visit the "[documentation](https://hightechu.github.io/accelerator-volunteer-bot/docs)".
 
 ## Screenshots
 
