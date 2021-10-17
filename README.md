@@ -1,15 +1,12 @@
-![Volunteer Bot](https://user-images.githubusercontent.com/26526271/137214285-053d391b-50a0-4d94-a7fa-f116ac647714.png)
-
+![Volunteer Bot](https://user-images.githubusercontent.com/26526271/137643953-cb8a7867-35d3-4418-b60e-b2877e5d8b03.png)
 
 ## About
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tortor vitae purus faucibus ornare suspendisse sed nisi lacus. Posuere lorem ipsum dolor sit. Quis varius quam quisque id diam vel quam elementum pulvinar. Rhoncus dolor purus non enim praesent elementum facilisis leo. Accumsan lacus vel facilisis volutpat est velit egestas dui. 
-
-For more information about the commands visit the "[documentation](https://hightechu.github.io/accelerator-volunteer-bot/docs)".
+For more information about Volunteer Bot commands visit the [documentation](https://hightechu.github.io/accelerator-volunteer-bot/docs).
 
 ## Screenshots
 
-![Bot Command Demo](./docs/images/demo.png)
+![image](https://user-images.githubusercontent.com/26526271/137644072-5681e6c8-b47b-4180-b753-585a6f86af19.png)
 
 ## Technologies
 
